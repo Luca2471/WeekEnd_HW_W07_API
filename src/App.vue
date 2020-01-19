@@ -4,7 +4,10 @@
         <h1>NFL Teams By Number Of arrests</h1>
         <div>
           <teams-list :teams="teams"></teams-list>
-          <team-details :team='selectedTeam'></team-details>
+          <div>
+            <team-details :team='selectedTeam'></team-details>
+            <favourite-teams :favouriteTeams="favouriteTeams"></favourite-teams>
+          </div>
         </div>
       </div>
     </body>
@@ -15,13 +18,15 @@
 import { eventBus } from './main.js';
 import TeamsList from './components/TeamsList.vue';
 import TeamDetails from './components/TeamDetails.vue';
+import FavouriteTeams from './components/FavouriteTeams.vue';
 
 export default {
   name: 'app',
   data() {
     return {
       teams: [],
-      selectedTeam: ""
+      selectedTeam: null,
+      favouriteTeams: []
     };
   },
   mounted() {
@@ -32,11 +37,17 @@ export default {
       eventBus.$on('team-selected', (team) => {
         this.selectedTeam = team
       })
+
+      eventBus.$on('favourite-added', (selectedTeam) => {
+        this.favouriteTeams.push(selectedTeam)
+      })
   },
 
   components: {
     "teams-list": TeamsList,
-    "team-details": TeamDetails
+    "team-details": TeamDetails,
+    "favourite-teams": FavouriteTeams
+
   }
 
 }

@@ -9,6 +9,11 @@ import { eventBus } from '../main.js';
 export default {
   name: 'list-item',
   props: ['team'],
+  data() {
+    return {
+      selectedTeamName: ""
+    }
+  },
   methods: {
     handleClick(){
       eventBus.$emit('team-selected', this.team)
