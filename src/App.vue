@@ -4,6 +4,7 @@
         <h1>NFL Teams By Number Of arrests</h1>
         <div>
           <teams-list :teams="teams"></teams-list>
+          <team-details :team='selectedTeam'></team-details>
         </div>
       </div>
     </body>
@@ -12,7 +13,8 @@
 
 <script>
 import { eventBus } from './main.js';
-import TeamsList from './components/TeamsList.vue'
+import TeamsList from './components/TeamsList.vue';
+import TeamDetails from './components/TeamDetails.vue';
 
 export default {
   name: 'app',
@@ -33,7 +35,8 @@ export default {
   },
 
   components: {
-    "teams-list": TeamsList
+    "teams-list": TeamsList,
+    "team-details": TeamDetails
   }
 
 }
