@@ -1,34 +1,39 @@
 <template lang="html">
-  <body>
-    <h1>NFL Teams Arests</h1>
-  </body>
+    <body>
+      <div>
+        <h1>NFL Teams By Number Of arrests</h1>
+        <div>
+          <teams-list :teams="teams"></teams-list>
+        </div>
+      </div>
+    </body>
 
 </template>
 
 <script>
-import {eventBus} from './main.js';
-import TeamsNamesList from './components/TeamsNamesList.vue'
+import { eventBus } from './main.js';
+import TeamsList from './components/TeamsList.vue'
 
 export default {
   name: 'app',
-  data(){
+  data() {
     return {
       teams: [],
-      teamsNames: []
-    }
+      selectedTeam: ""
+    };
   },
-
-  mounted(){
+  mounted() {
     fetch('http://nflarrest.com/api/v1/team')
       .then(result => result.json())
-      .then(teams => {
-        this.teamsNames = teams.map(team => team.Team_preffered_name)
-        this.teams = teams
+      .then(teams => this.teams = teams)
+
+      eventBus.$on('team-selected', (team) => {
+        this.selectedTeam = team
       })
   },
-  
+
   components: {
-    "teams-names-list": TeamsNamesList
+    "teams-list": TeamsList
   }
 
 }
