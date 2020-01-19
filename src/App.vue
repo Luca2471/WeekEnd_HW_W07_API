@@ -1,28 +1,38 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="html">
+  <body>
+    <h1>NFL Teams Arests</h1>
+  </body>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {eventBus} from './main.js';
+import TeamsNamesList from './components/TeamsNamesList.vue'
 
 export default {
   name: 'app',
+  data(){
+    return {
+      teams: [],
+      teamsNames: []
+    }
+  },
+
+  mounted(){
+    fetch('http://nflarrest.com/api/v1/team')
+      .then(result => result.json())
+      .then(teams => {
+        this.teamsNames = teams.map(team => team.Team_preffered_name)
+        this.teams = teams
+      })
+  },
+  
   components: {
-    HelloWorld
+    "teams-names-list": TeamsNamesList
   }
+
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="css" scoped>
 </style>
