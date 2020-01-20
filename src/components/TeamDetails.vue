@@ -34,7 +34,7 @@ export default {
 <style lang="css" scoped>
   span {
     font-size: 30px;
-    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-family: "Times New Roman", Times, serif;
     list-style: none;
     padding:5px;
     padding-top: 20px;
